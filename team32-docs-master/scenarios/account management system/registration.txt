@@ -1,0 +1,10 @@
+Use Case: Registration
+1.  User complete registration form
+2.  System validates registration form
+3.  System sends user confirmation email message
+4.  User confirms email
+5.  System stores user
+Extensions
+2a. Invalid input entered
+1. System notifies user of invalid input
+2. User can then fix invalid input

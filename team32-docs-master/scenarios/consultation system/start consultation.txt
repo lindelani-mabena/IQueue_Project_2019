@@ -1,0 +1,6 @@
+Use Case: Start Consultation
+1.  Consultant starts consultation
+2.  System records consultation start time
+3.  Consultant ends consultation
+4.  System records consultation end time
+5.  System calculates and stores consultation duration

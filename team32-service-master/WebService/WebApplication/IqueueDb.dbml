@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RebelsDB" Class="IqueueDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=rebels.database.windows.net;Initial Catalog=RebelsDB;Persist Security Info=True;User ID=Rebels" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RebelsDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Branch" Member="Branches">
+    <Type Name="Branch">
+      <Column Name="Branch_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Address_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Branch_Service" Member="Services" ThisKey="Branch_Id" OtherKey="Branch_Id" Type="Service" />
+      <Association Name="Address_Branch" Member="Address" ThisKey="Address_Id" OtherKey="Address_Id" Type="Address" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consultation" Member="Consultations">
+    <Type Name="Consultation">
+      <Column Name="Consultation_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Service_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Teller" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Start_At" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="End_At" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Duration" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Consultation_Ticket" Member="Tickets" ThisKey="Consultation_Id" OtherKey="Consultation_Id" Type="Ticket" />
+      <Association Name="Service_Consultation" Member="Service" ThisKey="Service_Id" OtherKey="Service_Id" Type="Service" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Province" Member="Provinces">
+    <Type Name="Province">
+      <Column Name="Province_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Province_City" Member="Cities" ThisKey="Province_Id" OtherKey="Province_Id" Type="City" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Queue" Member="Queues">
+    <Type Name="Queue">
+      <Column Name="Queue_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Service_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Average_Waiting_Time" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Queue_Ticket" Member="Tickets" ThisKey="Queue_Id" OtherKey="Queue_Id" Type="Ticket" />
+      <Association Name="Service_Queue" Member="Service" ThisKey="Service_Id" OtherKey="Service_Id" Type="Service" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Service" Member="Services">
+    <Type Name="Service">
+      <Column Name="Service_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Branch_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="User_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Service_Consultation" Member="Consultations" ThisKey="Service_Id" OtherKey="Service_Id" Type="Consultation" />
+      <Association Name="Service_Queue" Member="Queues" ThisKey="Service_Id" OtherKey="Service_Id" Type="Queue" />
+      <Association Name="Branch_Service" Member="Branch" ThisKey="Branch_Id" OtherKey="Branch_Id" Type="Branch" IsForeignKey="true" />
+      <Association Name="Service_Type_Service" Member="Service_Type" ThisKey="Type_Id" OtherKey="Type_Id" Type="Service_Type" IsForeignKey="true" />
+      <Association Name="User_Service" Member="User" ThisKey="User_Id" OtherKey="User_Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Service_Type" Member="Service_Types">
+    <Type Name="Service_Type">
+      <Column Name="Type_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Service_Type_Service" Member="Services" ThisKey="Type_Id" OtherKey="Type_Id" Type="Service" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ticket" Member="Tickets">
+    <Type Name="Ticket">
+      <Column Name="Ticket_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="User_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Queue_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Consultation_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Average_Waiting_Time" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Consultation_Ticket" Member="Consultation" ThisKey="Consultation_Id" OtherKey="Consultation_Id" Type="Consultation" IsForeignKey="true" />
+      <Association Name="Queue_Ticket" Member="Queue" ThisKey="Queue_Id" OtherKey="Queue_Id" Type="Queue" IsForeignKey="true" />
+      <Association Name="User_Ticket" Member="User" ThisKey="User_Id" OtherKey="User_Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="User_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Dob" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Password_Hash" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveAccount" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Online" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LoginCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_Service" Member="Services" ThisKey="User_Id" OtherKey="User_Id" Type="Service" />
+      <Association Name="User_Ticket" Member="Tickets" ThisKey="User_Id" OtherKey="User_Id" Type="Ticket" />
+      <Association Name="User_User_Address" Member="User_Addresses" ThisKey="User_Id" OtherKey="User_Id" Type="User_Address" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Address" Member="User_Addresses">
+    <Type Name="User_Address">
+      <Column Name="User_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Address_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Intial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_User_Address" Member="User" ThisKey="User_Id" OtherKey="User_Id" Type="User" IsForeignKey="true" />
+      <Association Name="Address_User_Address" Member="Address" ThisKey="Address_Id" OtherKey="Address_Id" Type="Address" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="Address_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Address1" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="City_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Latitude" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Postal_Code" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Address_Branch" Member="Branches" ThisKey="Address_Id" OtherKey="Address_Id" Type="Branch" />
+      <Association Name="Address_User_Address" Member="User_Addresses" ThisKey="Address_Id" OtherKey="Address_Id" Type="User_Address" />
+      <Association Name="City_Address" Member="City" ThisKey="City_Id" OtherKey="City_Id" Type="City" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.City" Member="Cities">
+    <Type Name="City">
+      <Column Name="City_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Province_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Last_Update" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Initial_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="City_Address" Member="Addresses" ThisKey="City_Id" OtherKey="City_Id" Type="Address" />
+      <Association Name="Province_City" Member="Province" ThisKey="Province_Id" OtherKey="Province_Id" Type="Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

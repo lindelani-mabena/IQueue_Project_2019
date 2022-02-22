@@ -1,0 +1,8 @@
+Use Case: Login
+1.  User complete login form
+2.  System validates login credentials
+3.  System log user in
+Extensions
+2a.  Incorrect credentials entered
+1.  System notifies user of incorrect credentials
+2.  User can fix credentials

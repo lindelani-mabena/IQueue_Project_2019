@@ -1,0 +1,7 @@
+Use Case: Generate client’s report
+1.  Consultant select client’s report
+2.  Consultant generate client’s report
+3.  Manager select consultant’s report
+4.  Manager generate consultant’s report
+5.  System admin select manager’s report
+6.  System admin generate manager’s report

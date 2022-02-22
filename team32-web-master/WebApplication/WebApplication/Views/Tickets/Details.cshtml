@@ -1,0 +1,30 @@
+﻿@model Ticket
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model != null)
+{
+    var updateStatus = ViewBag.UpdateStatus;
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            @if (!string.IsNullOrWhiteSpace(updateStatus))
+                {
+            <div class="alert alert-success">
+                <strong>Success!</strong> @updateStatus
+            </div>
+                }
+            <div class="card">
+                <h5 class="card-header">Ticket @Model.Id</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Token: @Model.Token</h5>
+                    <span class="card-text">Some info</span><br />
+                    <a href="/Tickets/List" class="btn btn-secondary my-3">List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

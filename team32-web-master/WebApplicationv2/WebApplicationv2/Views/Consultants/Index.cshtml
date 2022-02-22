@@ -1,0 +1,187 @@
+﻿@model WebApplicationv2.Models.Views.ConsultantModel
+
+@{
+    var branch = Model.Branch;
+}
+
+@{
+    ViewData["Title"] = "Consultant";
+
+    var heading = "Consultant @ ";
+
+    if (branch != null)
+    {
+        heading += branch.Name;
+    }
+
+    ViewData["heading"] = heading;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <script>
+        const driver = new Driver({
+            opacity: 0.75
+        });
+        // Define the steps for introduction
+
+        driver.defineSteps([
+            {
+                element: '#consultant-intro',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    className: 'first-step-popover-class',
+                    title: 'Get Started',
+                    description: 'Welcome to Consultant Guide',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#consultant-consultation',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Start Consultation',
+                    description: 'Click here to start consultation',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#consultant-profile',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Profile',
+                    description: 'This is where you update and view your profile',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#consultant-logout',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Logout',
+                    description: 'Menu to end your session',
+                    position: 'left'
+                }
+            }
+        ]);
+
+        driver.start();
+    </script>
+}
+
+@{
+    var pending = countTickets("pending");
+    var served = countTickets("served");
+    var consultation = countTickets("consultation");
+    var active = activeTickets();
+}
+
+@functions
+{
+
+    public int countTickets(string type)
+    {
+        int total = 0;
+
+        if (Model.Branch != null)
+        {
+            if (Model.Branch.Services.Count > 0)
+            {
+                foreach (var service in Model.Branch.Services)
+                {
+                    total += service.Tickets.Count(x => x.Status.ToLower().Equals(type.ToLower()));
+                }
+            }
+        }
+        return total;
+    }
+
+    public int activeTickets()
+    {
+        int total = 0;
+        if (Model.Branch != null)
+        {
+            if (Model.Branch.Services.Count > 0)
+            {
+                foreach (var service in Model.Branch.Services)
+                {
+                    total += service.Tickets.Count(x => x.Active);
+                }
+            }
+        }
+        return total;
+    }
+
+}
+
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="font-weight-bold text-primary mb-1">Pending Tickets</div>
+                        <div class="h3 mb-0 font-weight-bold text-gray-800">@pending</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="font-weight-bold text-success mb-1">Served Tickets</div>
+                        <div class="h3 mb-0 font-weight-bold text-gray-800">@served</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="font-weight-bold text-info mb-1">Consultation</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h3 mb-0 mr-3 font-weight-bold text-gray-800">@consultation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="font-weight-bold text- mb-1">Active Tickets</div>
+                        <div class="h3 mb-0 font-weight-bold text-gray-800">@active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

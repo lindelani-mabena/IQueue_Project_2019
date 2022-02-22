@@ -1,0 +1,665 @@
+﻿@{
+    ViewData["Title"] = "Manager";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<Branch>
+@using System.Data
+@using FusionCharts.DataEngine
+@using FusionCharts.Visualization
+@using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal
+
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    DataTable ChartData = new DataTable();
+
+    ChartData.Columns.Add("Branches", typeof(System.String));
+    ChartData.Columns.Add("Services", typeof(System.Int32));
+
+
+    foreach (Branch branch in Model)
+    {
+        foreach (Service s in branch.Services)
+        {
+            ChartData.Rows.Add(branch.Name + " " + s.Name, s.Tickets.Count);
+        }
+    }
+
+    // Create static source with this data table
+    StaticSource source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    DataModel model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.PieChart column = new Charts.PieChart("tickets_chart");
+    // Set Chart's width and height
+    column.Width.Pixel(700);
+    column.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    column.Data.Source = model;
+    // Set Chart Title
+    column.Caption.Text = "Number of tickets per Service";
+    // Sset chart sub title
+    column.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //column.XAxis.Text = "Services";
+    // Set YAxis title
+    //column.YAxis.Text = "Tickets";
+    column.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Consultants", typeof(System.String));
+    ChartData.Columns.Add("Branches", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        ChartData.Rows.Add(branch.Name, branch.Consultants.Count);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.ColumnChart consultants = new Charts.ColumnChart("consultants_charts");
+    // Set Chart's width and height
+    consultants.Width.Pixel(700);
+    consultants.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    consultants.Data.Source = model;
+    // Set Chart Title
+    consultants.Caption.Text = "Number of consultants per branch";
+    // Sset chart sub title
+    consultants.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    consultants.XAxis.Text = "Branches";
+    // Set YAxis title
+    consultants.YAxis.Text = "Consultants";
+    consultants.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Tickets", typeof(System.String));
+    ChartData.Columns.Add("Branches", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        int total = 0;
+        foreach (Service service in branch.Services)
+        {
+            total += service.Tickets.Count;
+        }
+        ChartData.Rows.Add(branch.Name, total);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.ColumnChart tickets = new Charts.ColumnChart("tickets_charts");
+    // Set Chart's width and height
+    tickets.Width.Pixel(700);
+    tickets.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    tickets.Data.Source = model;
+    // Set Chart Title
+    tickets.Caption.Text = "Tickets per Branch";
+    // Sset chart sub title
+    tickets.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    tickets.XAxis.Text = "Branches";
+    // Set YAxis title
+    tickets.YAxis.Text = "Tickets";
+    tickets.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Visitors", typeof(System.Int32));
+
+
+    int firstPeek = 0;
+    int secondPeek = 0;
+    int lastPeek = 0;
+
+    foreach (Branch branch in Model)
+    {
+        foreach (Service service in branch.Services)
+        {
+            foreach (var ticket in service.Tickets)
+            {
+                int hour = ticket.InitialDate.Hour;
+
+                if (hour > 8 && hour < 11)
+                {
+                    firstPeek++;
+                }
+                else if (hour > 11 && hour < 14)
+                {
+                    secondPeek++;
+                }
+                else if (hour > 14)
+                {
+                    lastPeek++;
+                }
+            }
+        }
+    }
+
+    ChartData.Rows.Add("08:00 - 11:00", firstPeek);
+    ChartData.Rows.Add("11:00 - 14:00", secondPeek);
+    ChartData.Rows.Add("14:00 - 16:00", lastPeek);
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.ColumnChart peek = new Charts.ColumnChart("peek_charts");
+    // Set Chart's width and height
+    peek.Width.Pixel(700);
+    peek.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    peek.Data.Source = model;
+    // Set Chart Title
+    peek.Caption.Text = "Peek Times";
+    // Sset chart sub title
+    peek.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    peek.XAxis.Text = "Times";
+    // Set YAxis title
+    peek.YAxis.Text = "Tickets";
+    peek.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Visitors", typeof(System.Int32));
+
+    int sun = 0;
+    int mon = 0;
+    int tue = 0;
+    int wed = 0;
+    int thu = 0;
+    int fri = 0;
+    int sat = 0;
+
+    foreach (Branch branch in Model)
+    {
+        foreach (Service service in branch.Services)
+        {
+            foreach (var ticket in service.Tickets)
+            {
+                int day = ticket.InitialDate.Day;
+
+                if (day == 0)
+                {
+                    sun++;
+                }
+                else if (day == 1)
+                {
+                    mon++;
+                }
+                else if (day == 2)
+                {
+                    tue++;
+                }
+                else if (day == 3)
+                {
+                    wed++;
+                }
+                else if (day == 4)
+                {
+                    thu++;
+                }
+                else if (day == 5)
+                {
+                    fri++;
+                }
+                else if (day == 6)
+                {
+                    sat++;
+                }
+            }
+        }
+    }
+
+    ChartData.Rows.Add("Sunday", sun);
+    ChartData.Rows.Add("Monday", mon);
+    ChartData.Rows.Add("Tuesday", tue);
+    ChartData.Rows.Add("Wednesday", wed);
+    ChartData.Rows.Add("Thursday", thu);
+    ChartData.Rows.Add("Friday", fri);
+    ChartData.Rows.Add("Saturday", sat);
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.DoughnutChart days = new Charts.DoughnutChart("days_charts");
+    // Set Chart's width and height
+    days.Width.Pixel(700);
+    days.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    days.Data.Source = model;
+    // Set Chart Title
+    days.Caption.Text = "Weekly Peak days";
+    // Sset chart sub title
+    days.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //days.XAxis.Text = "Days";
+    // Set YAxis title
+    //days.YAxis.Text = "Tickets";
+    days.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Duration", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        var d = 0;
+        ;
+        foreach (Service service in branch.Services)
+        {
+            foreach (var ticket in service.Tickets)
+            {
+                d += ticket.Duration.Minutes;
+            }
+        }
+        ChartData.Rows.Add(branch.Name, d);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.DoughnutChart duration = new Charts.DoughnutChart("duration_charts");
+    // Set Chart's width and height
+    duration.Width.Pixel(700);
+    duration.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    duration.Data.Source = model;
+    // Set Chart Title
+    duration.Caption.Text = "Time spent at the branch";
+    // Sset chart sub title
+    duration.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //days.XAxis.Text = "Days";
+    // Set YAxis title
+    //days.YAxis.Text = "Tickets";
+    duration.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Tickets Pending", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        var pending = 0;
+        foreach (Service service in branch.Services)
+        {
+            pending += service.Tickets.Count(y => y.Status.ToLower().Equals("pending"));
+        }
+
+        ChartData.Rows.Add(branch.Name, pending);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.DoughnutChart x = new Charts.DoughnutChart("types_charts");
+    // Set Chart's width and height
+    x.Width.Pixel(700);
+    x.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    x.Data.Source = model;
+    // Set Chart Title
+    x.Caption.Text = "Tickets Served";
+    // Sset chart sub title
+    x.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //days.XAxis.Text = "Days";
+    // Set YAxis title
+    //days.YAxis.Text = "Tickets";
+    x.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Tickets Served", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        var served = 0;
+        foreach (Service service in branch.Services)
+        {
+            served += service.Tickets.Count(y => y.Status.ToLower().Equals("served"));
+        }
+
+        ChartData.Rows.Add(branch.Name, served);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.DoughnutChart chartServed = new Charts.DoughnutChart("served_charts");
+    // Set Chart's width and height
+    chartServed.Width.Pixel(700);
+    chartServed.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    chartServed.Data.Source = model;
+    // Set Chart Title
+    chartServed.Caption.Text = "Tickets Served Per Branch";
+    // Sset chart sub title
+    chartServed.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //days.XAxis.Text = "Days";
+    // Set YAxis title
+    //days.YAxis.Text = "Tickets";
+    chartServed.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    ChartData = new DataTable();
+
+    ChartData.Columns.Add("Peak Times", typeof(System.String));
+    ChartData.Columns.Add("Tickets Served", typeof(System.Int32));
+
+    foreach (Branch branch in Model)
+    {
+        var served = 0;
+        foreach (Service service in branch.Services)
+        {
+            served += service.Tickets.Count(y => y.Status.ToLower().Equals("served"));
+        }
+
+        ChartData.Rows.Add(branch.Name, served);
+    }
+
+    // Create static source with this data table
+    source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.DoughnutChart chartConsultation = new Charts.DoughnutChart("consultation_charts");
+    // Set Chart's width and height
+    chartConsultation.Width.Pixel(700);
+    chartConsultation.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    chartConsultation.Data.Source = model;
+    // Set Chart Title
+    chartConsultation.Caption.Text = "Tickets Currently being served";
+    // Sset chart sub title
+    chartConsultation.SubCaption.Text = "2019";
+
+    // set XAxis Text
+    //days.XAxis.Text = "Days";
+    // Set YAxis title
+    //days.YAxis.Text = "Tickets";
+    chartConsultation.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+
+    List<dynamic> chartsX = new List<dynamic>();
+    chartsX.Add(chartServed);
+    chartsX.Add(column);
+    chartsX.Add(consultants);
+    chartsX.Add(tickets);
+    chartsX.Add(peek);
+    chartsX.Add(days);
+    chartsX.Add(duration);
+    chartsX.Add(chartConsultation);
+}
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
+}
+
+@section Scripts {
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <script>
+        const driver = new Driver({
+            opacity: 0.75
+        });
+        // Define the steps for introduction
+
+        driver.defineSteps([
+            {
+                element: '#manager-intro',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    className: 'first-step-popover-class',
+                    title: 'Get Started',
+                    description: 'Welcome to Manager Guide',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-branches',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Branches',
+                    description: 'Click here to manage system branches.',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-clients',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Our Clients',
+                    description: 'Click here to manage our clients.',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-consultants',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Our Consultants',
+                    description: 'Click here to manage our consultants.',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-services',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Services',
+                    description: 'Click here to manage system services.',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-profile',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Profile',
+                    description: 'This is where you update and view your profile',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#manager-logout',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Logout',
+                    description: 'Menu to end your session',
+                    position: 'left'
+                }
+            }
+        ]);
+        driver.start();
+    </script>
+}
+
+@foreach (var a in chartsX)
+{
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Stats</h6>
+        </div>
+        <div class="card-body align-content-center">
+            <div>
+                @if (Model.Count > 0)
+                {
+                    try
+                    {
+                        @Html.Raw(a.Render())
+                    }
+                    catch (Exception ex)
+                    {
+                        <p>No Data</p>
+                    }
+                }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+            </div>
+            <hr>
+        </div>
+    </div>
+}
+@*
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(consultants.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(tickets.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(peek.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(days.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(duration.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(x.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(chartServed.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            @Html.Raw(chartConsultation.Render())
+        }
+        else
+        {
+            <h1>No Data Available</h1>
+        }
+    </div>
+</form>
+    *@

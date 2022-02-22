@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_branch"
+        android:icon="@android:drawable/ic_media_rew"
+        android:title="Branch" />
+
+    <item
+        android:id="@+id/nav_sev"
+        android:icon="@android:drawable/presence_online"
+        android:tint="#0275D8"
+        android:background="#0275D8"
+        android:title="Service"
+        android:enabled="false"/>
+
+    <item
+        android:id="@+id/nav_stat"
+        android:icon="@android:drawable/ic_media_ff"
+        android:title="Queue Status"
+        android:iconTint="@color/cardview_light_background"
+        android:enabled="false"/>
+
+</menu>

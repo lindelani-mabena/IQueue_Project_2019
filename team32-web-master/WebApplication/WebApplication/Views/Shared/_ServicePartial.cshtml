@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Service
+
+
+<div class="card col-sm-6 col-md-4 col-lg-3 m-2">
+  @* <div class="card-header"> *
+        Service @Model.Id
+    </div>*@ 
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text"> @Model.Description</p>
+       
+     
+</div>
+    <div class="card-footer">
+        <a href="/Services/@Model.Id/Tickets" class="btn btn-primary">Service status</a>
+
+    </div>
+    </div>

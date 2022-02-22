@@ -1,0 +1,97 @@
+﻿@model Branch
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row">
+    @*<div class="col-sm-9 col-md-7 col-lg-4 mx-auto">*@
+    <div class="col-sm-9 col-md-7 col-lg-4 mx-auto">
+        <section id="loginForm">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h2 class="text-center my-2">@ViewBag.Title</h2>
+                    @using (Html.BeginForm("CreateBranchModal", "Branches", FormMethod.Post, new { @class = "form-signin effect-3", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Name, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Code, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Email, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Phone, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Address.Address1, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Address.Address1, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Address.Address1, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Address.Address2, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Address.Address2, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Address.Address2, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Address.City, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Address.City, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Address.City, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Address.Province, new { @class = "text" })
+                                @Html.DropDownListFor(m => m.Address.Province, new List<SelectListItem>()
+                                {
+                                    new SelectListItem("Gauteng", "Gauteng"),
+                                    new SelectListItem("Limpopo", "Limpopo")
+                                }, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Address.Province, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group my-2">
+                                @Html.LabelFor(m => m.Address.Zip, new { @class = "text" })
+                                @Html.TextBoxFor(m => m.Address.Zip, new { @class = "form-control" })
+                            </div>
+                            <p class="text text-danger">@Html.ValidationMessageFor(m => m.Address.Zip, "", new { @class = "text-danger" })</p>
+                        </div>
+                        <p class="text-center text-@ViewBag.Style">@ViewBag.Message</p>
+                        <div class="form-group">
+                            @*
+                                <div class="form-label-group my-2">
+                                    <button type="button" class="btn btn-success form-control" data-save="modal">Create Branch</button>
+                                </div>*@
+                            <input type="submit" class="form-control btn btn-success" value="Create Branch" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

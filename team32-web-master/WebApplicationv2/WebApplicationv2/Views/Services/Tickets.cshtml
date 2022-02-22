@@ -1,0 +1,382 @@
+﻿@*
+    @model Service
+    @{
+        ViewData["Title"] = $"{Model.Name} queue";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+
+        //  Initialize waiting time
+
+        var hh = Model.CalculateAverageWaitingTime().Hours;
+        var mm = Model.CalculateAverageWaitingTime().Minutes;
+        var ss = Model.CalculateAverageWaitingTime().Seconds;
+    }
+
+    @section Styles
+    {
+        <link href="~/css/tablestyle.css" rel="stylesheet" />
+    }
+
+    @section Scripts
+    {
+        <script src="~/js/tablestyle.js" asp-append-version="true"></script>
+        <script src="~/js/time.js" asp-append-version="true"></script>
+        <script type="text/javascript" asp-append-version="true">
+            const timeObject = {
+                hh: @hh,
+                mm: @mm,
+                ss: @ss
+            }
+            var t = setInterval('startTime(timeObject)', 3000);
+        </script>
+    }
+
+    <section class="py-3">
+        <nav class="breadcrumbs my-4">
+            <a href="/Branches" class="breadcrumbsList">Branches</a>
+            <a href="/Branches/@ViewBag.Branch.Id/Services" class="breadcrumbsList">Services</a>
+            <a href="/Services/@Model.Id/Tickets" class="breadcrumbsList">Tickets</a>
+        </nav>
+        <h1>Estimated Waiting Time: <span id="waitingTime"></span>@*Model.CalculateAverageWaitingTime().ToString(@"hh\:mm\:ss")*@@*</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Status</th>
+                        <th>Booked at</th>
+                        <th>Waiting Time</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                    @foreach (var ticket in Model.Tickets)
+                    {
+                        if (ticket.Active)
+                        {
+                            @(await Html.PartialAsync("_TicketRowPartial",
+                                  ticket,
+                                  new ViewDataDictionary(ViewData)
+                                  {
+                                      { "WaitingTime", Model.CalculateAverageWaitingTime().ToString(@"hh\:mm\:ss") }
+                                  }))
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tbl-header">
+            <table>
+                <tfoot>
+                    <tr>
+                        <th>Token</th>
+                        <th>Status</th>
+                        <th>Booked at</th>
+                        <th>Waiting Time</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4"><a data-target="#ticketModal" data-toggle="modal" href="#" data-id="@Model.Id" data-name="@Model.Name" data-description="@Model.Description" class="btn btn-primary form-control">Join Queue</a></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+
+
+    <!-- follow me template -->
+    <div class="made-with-love">
+        Powered by iQueue
+    </div>
+
+    @(await Html.PartialAsync("_TicketModalPartial",
+          Model,
+          new ViewDataDictionary(ViewData)
+          {
+              { "branchId", ViewBag.Branch.Id }
+          }))
+
+    <!-- /.container-fluid -->*@
+        @model Service
+        @{
+            ViewData["Title"] = $"{Model.Name} queue";
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+        @section Styles
+        {
+            <link href="~/css/tablestyle.css" rel="stylesheet" />
+            <script src="sweetalert2.min.js"></script>
+            <link rel="stylesheet" href="sweetalert2.min.css">
+        }
+
+        @section Scripts
+        {
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+            <script src="sweetalert2.all.min.js"></script>
+            <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+            <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+            <script src="~/js/tablestyle.js" asp-append-version="true"></script>
+            <script src="~/js/time.js" asp-append-version="true"></script>
+            <script type="text/javascript" asp-append-version="true"></script>
+            <script type="text/javascript" asp-append-version="true">
+
+                let service = {
+                    id: 0,
+                    name: '',
+                    description: '',
+                    initialDate: '',
+                    branches: [],
+                    tickets: []
+                }
+
+                function updateData() {
+                    $.getJSON("/Services/@Model.Id/GetTickets",
+                        function (s) {
+                            
+                            displayTickets(s.tickets);
+
+                            if (service.tickets.length == 0) {
+                                service.tickets = s.tickets;
+                            } else if (service.tickets.length != s.tickets.length) {
+
+                                Swal.fire(
+                                    {
+                                        title: 'iQueue',
+                                        text: "New Ticket",
+                                        type: 'success',
+                                        showCancelButton: false,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }
+                                );
+                                service.tickets = s.tickets;
+                            } else {
+                                var servedNew = s.tickets.filter(function (ticket) {
+                                    return ticket.status == "Served";
+                                });
+
+                                var servedOld = service.tickets.filter(function (ticket) {
+                                    return ticket.status == "Served";
+                                });
+
+                                if (servedNew > servedOld) {
+                                    Swal.fire(
+                                        {
+                                            title: 'iQueue',
+                                            text: "Ticket Served",
+                                            type: 'success',
+                                            showCancelButton: false,
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        }
+                                    );
+                                }
+
+                                var consultationNew = s.tickets.filter(function (ticket) {
+                                    return ticket.status == "Consultation";
+                                });
+
+                                var consultationOld = service.tickets.filter(function (ticket) {
+                                    return ticket.status == "Consultation";
+                                });
+
+                                if (consultationNew > consultationOld) {
+                                    Swal.fire(
+                                        {
+                                            title: 'iQueue',
+                                            text: "Consultation Started",
+                                            type: 'success',
+                                            showCancelButton: false,
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        }
+                                    );
+                                }
+
+                                service.tickets = s.tickets;
+                            }
+
+
+                        }
+                    );
+                }
+
+                function displayTickets(tickets) {
+                    $("#tickets").html('');
+                    var data;
+                    tickets.forEach(function(ticket) {
+                        var style = "";
+                        if (ticket.active) {
+                            if (ticket.status.toLowerCase() === "consultation") {
+                                $("#serving").html(`Now Serving ${ticket.token}`);
+                                style = "bg-success";
+                            } else {
+                                style = "bg-primary";
+                            }
+
+                            if (ticket.type.toLowerCase() === "mobile") {
+                                style = "bg-warning";
+                            }
+
+                            data += `<tr class="${style}" id="ticket">
+                                                                                                                                        <td class="text-lg">${
+                                ticket.token}</td>
+                                                                                                                                        <td>${
+                                ticket.status}</td>
+                                                                                                                                        <td>${
+                                ticket.initialDate}</td>
+                                                                                                                                        <td>${
+                                ticket.estimatedWaitingTime}</td>
+                                                                                                                                        </tr>`;
+                        }
+                    });
+                    $("#tickets").html(data);
+                }
+
+                function joinQueue() {
+                    console.log("Called");
+                    $.getJSON("/Branches/@ViewBag.Branch.Id/Services/@Model.Id/Join/New",
+                        function(ticket) {
+                            if (ticket == null) {
+                                console.log("No Ticket");
+                            } else {
+                                console.log(ticket);
+                            }
+                        }
+                    );
+                }
+
+                function joinQueueClick() {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: true
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Are you sure you want to join queue?',
+                        text: "iQueue",
+                        type: 'info',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $.getJSON("/Branches/@ViewBag.Branch.Id/Services/@Model.Id/Join/New",
+                                function(ticket) {
+                                    if (ticket == null) {
+                                        swalWithBootstrapButtons.fire(
+                                            'Error!',
+                                            'Something went wrong. Please contact system admin',
+                                            'warning'
+                                        );
+                                    } else {
+
+                                        swalWithBootstrapButtons.fire({
+                                            title: 'Success',
+                                            text: "You have successfully joined this Queue\nTicket Number: " +
+                                                ticket.token,
+                                            type: 'success',
+                                            showCancelButton: false,
+                                            showConfirmButton: false,
+                                            timer: 3500
+                                        });
+                                    }
+                                }
+                            );
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            swalWithBootstrapButtons.fire(
+                                'Cancelled',
+                                'You did not join any Queue :)',
+                                'error'
+                            )
+                        }
+                    })
+                }
+
+            </script>
+            <script>
+                var t = setInterval(updateData, 5000);
+            </script>
+        }
+
+        <section class="py-3">
+            <nav class="breadcrumbs my-4">
+                <a href="/Branches" class="breadcrumbsList">Branches</a>
+                <a href="/Branches/@ViewBag.Branch.Id/Services" class="breadcrumbsList">Services</a>
+                <a href="/Services/@Model.Id/Tickets" class="breadcrumbsList">Tickets</a>
+            </nav>
+            <h1>
+                Estimated Waiting Time: <span id="waitingTime"></span>@*Model.CalculateAverageWaitingTime().ToString(@"hh\:mm\:ss")*@
+            </h1>
+            <h1 id="serving">
+            </h1>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Status</th>
+                            <th>Booked at</th>
+                            <th>Waiting Time</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody id="tickets">
+                    </tbody>
+                </table>
+            </div>
+            <div class="tbl-header">
+                <table>
+                    <tfoot>
+                        <tr>
+                            <th>Token</th>
+                            <th>Status</th>
+                            <th>Booked at</th>
+                            <th>Waiting Time</th>
+                        </tr>
+                        <tr>
+                            <th colspan="4">@*<a data-target="#ticketModal" data-toggle="modal" href="#" data-id="@Model.Id" data-name="@Model.Name" data-description="@Model.Description" class="btn btn-primary form-control">Join Queue</a>*@<button class="btn btn-primary form-control" onclick="joinQueueClick()">Join Queue</button></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+
+        @(await Html.PartialAsync("_TicketModalPartial",
+            Model,
+            new ViewDataDictionary(ViewData)
+            {
+                {"branchId", ViewBag.Branch.Id}
+            }))
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Ticket Joined Successfully</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Success
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,87 @@
+﻿@model List<Branch>
+@{
+    ViewData["Title"] = "Branches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <script>
+        const driver = new Driver();
+        driver.highlight({
+            element: '#blog',
+            popover: {
+                title: 'Branches Maps',
+                description: 'Click here to view maps',
+                position: 'right'
+            }
+        });
+        driver.start();
+    </script>
+
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
+    <style>
+    /* Style the links inside the sidenav */
+        #mySidenav a {
+            position: fixed; /* Position them relative to the browser window */
+            left: -3px; /* Position them outside of the screen */
+            transition: 0.3s; /* Add transition on hover */
+            padding: 5px; /* 15px padding */
+            width: 100px; /* Set a specific width */
+            text-decoration: none; /* Remove underline */
+            font-size: 20px; /* Increase font size */
+            color: white; /* White text color */
+            border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+        }
+
+        #mySidenav a:hover {
+            left: 0; /* On mouse-over, make the elements appear as they should */
+        }
+
+        /* The about link: 20px from the top with a green background */
+        #about {
+            top: 20px;
+            background-color: #4CAF50;
+        }
+
+        #blog {
+            top: 200px;
+            background-color: #2196F3; /* Blue */
+        }
+
+        #projects {
+            top: 140px;
+            background-color: #f44336; /* Red */
+        }
+
+        #contact {
+            top: 200px;
+            background-color: #555 /* Light Black */
+        }
+    </style>
+}
+
+
+
+<section class="py-5">
+    <div class="container">
+        <nav class="breadcrumbs my-4">
+            <a href="/Branches" class="breadcrumbsList">Branches</a>
+        </nav>
+        <h3 class="font-weight-light m-2">Branches</h3>
+
+        <div class="row">
+            @foreach (var branch in Model)
+            {
+                <partial name="_BranchPartial" model="@branch" />
+            }
+        </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="/Branches/Maps" id="blog">Google Maps</a>
+        </div>
+    </div>
+</section>

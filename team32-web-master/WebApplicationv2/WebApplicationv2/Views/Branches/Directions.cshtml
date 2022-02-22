@@ -1,0 +1,252 @@
+﻿@model List<Branch>
+@{
+    ViewData["Title"] = "Directions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        html, body {
+            height: 100%;
+            margin-top: 28px;
+            padding: 0;
+        }
+
+        #floating-panel {
+            position: absolute;
+            top: 75px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 2px;
+            width: 800px;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    <script>
+        const myPos =
+        {
+            lat: 0,
+            lng: 0
+        };
+
+        const distanceTime = {
+            distanceLabel: '',
+            distanceValue: 0,
+            timeLabel: '',
+            timeValue: 0
+        };
+
+        var map;
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+
+        function initMap() {
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            const myLatlng = new google.maps.LatLng(28.00232, -26.1845399);
+
+            map = new google.maps.Map(document.getElementById('map'),
+                {
+                    zoom: 7,
+                    center: { lat: 41.85, lng: -87.65 }
+                });
+
+            directionsRenderer.setMap(map);
+            directionsRenderer.setOptions({ suppressMarkers: true });
+
+            var onChangeHandler = function () {
+                setBranches(map);
+                calculateAndDisplayRoute(directionsService, directionsRenderer);
+            };
+            //document.getElementById('start').addEventListener('change', onChangeHandler);
+            //document.getElementById('end').addEventListener('change', onChangeHandler);
+            initMyLocation(map);
+            setBranches(map);
+        }
+
+        function refresh() {
+            setBranches(map);
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        }
+
+        function setBranches(map) {
+
+            const branches = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+            branches.forEach(function(branch) {
+                var contentString = '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    `<h3 id="firstHeading" class="firstHeading">${branch.Name}</h3>` +
+                    '<div id="bodyContent">' +
+                    `<p>Email: ${branch.Email}<br />` +
+                    `Phone: ${branch.Phone}</p>`;
+
+                if (branch.Services.length <= 0) {
+                    contentString += "<h5 style='color: red'>No Services</h5>";
+                } else {
+                    contentString += `<h5>Services ${distanceTime.timeLabel}</h5>` +
+                        `<ol>`;
+                    branch.Services.forEach(function(service) {
+                        contentString += `<li><a href='/Branches/${branch.Id}/Services/${service.Id}/Tickets'>${service
+                            .Name
+                            }</a></li>`;
+                    });
+                    contentString += `</ol><p><a href="/Branches/${branch.Id
+                        }/Services"><i>Please click here to see more details of services.</i></a></p>`;
+                }
+
+                contentString += `</div>` +
+                    '</div>';
+
+                let infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                const myLatLng = new google.maps.LatLng(branch.Address.Latitude, branch.Address.Longitude);
+                const marker = new google.maps.Marker({
+                    position: myLatLng,
+                    title: branch.Name,
+                    url: `/Branches/${branch.Id}/Services`
+                });
+
+                marker.addListener('click',
+                    function() {
+                        infowindow.open(map, marker);
+                    });
+
+                /*
+                google.maps.event.addListener(marker, 'click', function() {
+                    window.location.href = this.url;
+                });
+                */
+                marker.setMap(map);
+            });
+        }
+
+        function initMyLocation(map) {
+            const infoWindow = new google.maps.InfoWindow;
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                        myPos.lat = position.coords.latitude;
+                        myPos.lng = position.coords.longitude;
+
+                        const m = new google.maps.Marker({
+                            position: myPos,
+                            title: "My Location",
+                            icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+                                new google.maps.Size(22, 22),
+                                new google.maps.Point(0, 18),
+                                new google.maps.Point(11, 11))
+                        });
+
+                        infoWindow.setPosition(myPos);
+                        infoWindow.setContent('<div id="content">' +
+                            '<div id="siteNotice">' +
+                            '</div>' +
+                            '<p>You are here</p>' +
+                            '</div>' +
+                            '</div>');
+                        infoWindow.open(map);
+                        map.setCenter(myPos);
+                        m.setMap(map);
+
+                    },
+                    function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+            var val = document.getElementById('end').value;
+            var split = val.split(" ");
+            var lat = split[0];
+            var lng = split[1];
+            const myDestLatLng = new google.maps.LatLng(lat, lng);
+
+            var myOriginLatLng;
+            val = document.getElementById('start').value;
+            if (val == '') {
+                lat = myPos.lat;
+                lng = myPos.lng;
+                myOriginLatLng = new google.maps.LatLng(lat, lng);
+            } else {
+                myOriginLatLng = val;
+            }
+
+            var mode = document.getElementById('mode').value;
+
+            directionsService.route(
+                {
+                    origin: myOriginLatLng, //{ query: document.getElementById('start').value },
+                    destination: myDestLatLng,
+                    travelMode: mode
+                },
+                function(response, status) {
+                    if (status === 'OK') {
+                        //console.log(response);
+                        let data = response.routes[0].legs[0];
+                        // console.log(data);
+
+                        distanceTime.distanceLabel = data.distance.text;
+                        distanceTime.distanceValue = data.distance.value;
+                        distanceTime.timeLabel = data.duration.text;
+                        distanceTime.timeValue = data.duration.value;
+
+                        console.log(distanceTime);
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+        }
+
+        function proceed() {
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC78_KDVSY1e1b2NyPdd-i5-iyhgCKIXSs&callback=initMap">
+    </script>
+}
+
+<div>
+    <div id="floating-panel">
+        <b class="text mx-2">From: </b>
+        <input type="text" class="form-control-sm" style="width: 150px" id="start" />
+        <b class="text mx-2">Branch To: </b>
+        <select class="form-control-sm" style="width: 130px" id="end">
+            @foreach (Branch branch in Model)
+            {
+                <option value="@branch.Address.Latitude @branch.Address.Longitude">@branch.Name</option>
+            }
+        </select>
+        <b class="text mx-2">Mode: </b>
+        <select class="form-control-sm" style="width: 130px" id="mode">
+            <option value="WALKING">Walking</option>
+            <option value="DRIVING">Driving</option>
+        </select>
+        <button class="btn btn-sm btn-primary mx-2" onclick="refresh()">Refresh</button>
+        <button class="btn btn-sm btn-primary mx-2" onclick="alert('Hello World')">Go</button>
+    </div>
+    <div id="map"></div>
+</div>

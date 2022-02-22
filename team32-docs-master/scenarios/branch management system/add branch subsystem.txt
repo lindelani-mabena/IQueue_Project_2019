@@ -1,0 +1,8 @@
+Use Case: Add branch
+1.  System admin complete add brach form
+2.  System validates add branch form
+3.  System stores branch
+Extensions
+2a. Invalid input entered
+1.  System notifies system admin of invalid input entered
+2.  System admin can then fix invalid input

@@ -1,0 +1,8 @@
+Use Case: Update profile
+1.  User complete edit profile form
+2.  System validates update form
+3.  System update user profile
+Extensions
+2a.  Invalid input entered
+1.  System notifies the user of invalid input
+2.  User can fix invalid input or cancel

@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "iQueue";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <script>
+        const driver = new Driver();
+        driver.highlight({
+            element: '#tour_1',
+            popover: {
+                title: 'Getting started',
+                description: 'Click here to select a branch'
+            }
+        });
+        driver.start();
+    </script>
+}
+
+
+<partial name="_Slides" />
+<!-- Page Content -->
+<section class="py-5">
+    <div class="container">
+        @if (ViewBag.UpdateProfile != null)
+        {
+            @if (!ViewBag.UpdateProfile)
+            {
+                if (ViewBag.Greeting != null)
+                {
+                    <h1 class="font-weight-light">Welcome to iQueue @ViewBag.Greeting</h1>
+                }
+                else
+                {
+                    <h1 class="font-weight-light">Welcome to iQueue</h1>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Notification: </strong> <a href="/Account/Profile">Please update your profile.</a>
+                </div>
+                <h1 class="font-weight-light">Welcome to iQueue</h1>
+            }
+        }
+        else
+        {
+            <h1 class="font-weight-light">Welcome to iQueue</h1>
+        }
+        <p class="lead">
+            Queue anywhere, anytime.
+            <a href="/Branches/Maps" id="tour_1">Get Started</a>
+        </p>
+    </div>
+</section>

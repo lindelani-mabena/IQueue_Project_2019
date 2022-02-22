@@ -1,0 +1,63 @@
+﻿@model List<Branch>
+
+@{
+    ViewData["Title"] = "Branches";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section HeadStyle {
+
+}
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script type="text/javascript" asp-append-version="true">
+    </script>
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered display cell-border stripe" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var branch in Model)
+                        {
+                            <partial name="_BranchRowPartial" model="@branch" />
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="update ml-auto m-2">
+                    <a href="/Branches/Create" class="btn btn-primary btn-round">Add Branch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div id="modal-placeholder"></div>

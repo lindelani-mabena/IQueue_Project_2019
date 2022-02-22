@@ -1,0 +1,3 @@
+Use Case: View Queue Status
+1.  User select view queue status
+2.  System displays the queue status at the specific branch in a specific location

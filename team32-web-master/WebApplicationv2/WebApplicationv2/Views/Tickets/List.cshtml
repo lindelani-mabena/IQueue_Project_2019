@@ -1,0 +1,26 @@
+﻿@model List<Ticket>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>List Tickets</h3>
+            @if (Model != null)
+            {
+                foreach (var ticket in Model)
+                {
+                    <partial name="_TicketPartial" model="@ticket" />
+                }
+            }
+            else
+            {
+            <p>No Tickets Found in the Database</p>
+            }
+        </div>
+    </div>
+</div>
+

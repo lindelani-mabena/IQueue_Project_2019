@@ -1,0 +1,8 @@
+Location subsystem
+
+Use Case: Choose Location
+1.  User selects a location
+2.  System recommends nearest branch to the user
+3.  User selects a branch
+4.  System estimates arrival time to the branch
+5.  User selects a branch service

@@ -1,0 +1,6 @@
+Use Case: Join Queue
+1.  User selects join queue
+2.  System estimates queue waiting time and notify user to confirm
+3.  User confirms join queue
+4.  System adds the user to the queue
+5.  System generate a PDF token for the user

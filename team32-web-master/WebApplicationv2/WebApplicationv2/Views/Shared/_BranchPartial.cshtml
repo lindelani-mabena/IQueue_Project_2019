@@ -1,0 +1,53 @@
+﻿@model Branch
+@*
+        <div class="card">
+            <img src="https://www.bankoftennessee.com/wp/wp-content/uploads/branch-icon-300.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">Branch Email: @Model.Email</p>
+                <a href="/Branches/@Model.Id/Services" class="btn btn-primary">Services</a>
+            </div>
+        </div>
+    <div class="card col-sm-6 col-md-4 col-lg-3 m-2">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">Email: @Model.Email</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                @if (Model.Services.Count > 0)
+                {
+                    <a href="/Branches/@Model.Id/Services" class="btn btn-sm btn-primary">Services</a>
+                }
+                else
+                {
+                    <a href="#" class="btn btn-sm btn-danger">No Services</a>
+                }
+            </small>
+        </div>
+    </div>
+*@
+<div class="col-md-4 col-lg-3 my-3">
+    <div class="card">
+        <div class="card-block">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Name</h4>
+                <h6 class="card-subtitle text-muted">Email: @Model.Email</h6>
+
+                <p class="card-text p-y-1">Services: @Model.Services.Count</p>
+                <!--<a href="#" class="card-link">link</a>
+                <a href="#" class="card-link">Second link</a>-->
+            </div>
+            <div class="card-footer">
+                @if (Model.Services.Count > 0)
+                {
+                    <a href="/Branches/@Model.Id/Services" class="btn btn-sm btn-primary">Services</a>
+                }
+                else
+                {
+                    <a href="#" class="btn btn-sm btn-danger">No Services</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

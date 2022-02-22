@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@android:drawable/presence_online"
+        android:title="Branch"
+        android:iconTint="@color/design_default_color_primary_dark"/>
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@android:drawable/ic_media_ff"
+        android:title="Service"
+        android:enabled="false"/>
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@android:drawable/ic_media_ff"
+        android:title="Queue Status"
+        android:enabled="false"/>
+
+</menu>

@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    var branch = ViewBag.Branch;
+    if (branch != null)
+    {
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Update Branch</h5>
+                        @using (Html.BeginForm("Update", "Branches", FormMethod.Post))
+                            {
+                    <form class="form-signin effect-3">
+                        <div class="form-label-group my-2">
+                            <label for="inputName">Name: </label>
+                            <input type="text" id="inputName" name="Name" class="form-control effect-3" placeholder='@branch.Name' value='@branch.Name' required autofocus>
+                            <span class="focus-border"><i></i></span>
+
+                        </div>
+                        <div class="form-label-group my-2">
+                            <label for="inputCode">Code: </label>
+                            <input type="text" id="inputCode" name="Code" class="form-control effect-3" placeholder='@branch.Code' value='@branch.Code' required>
+                            <span class="focus-border"><i></i></span>
+                        </div>
+                        <div class="form-label-group my-2">
+                            <label for="inputPhone">Phone: </label>
+                            <input type="text" id="inputPhone" name="Phone" class="form-control effect-3" placeholder='@branch.Phone' value='@branch.Phone' required>
+                            <span class="focus-border"><i></i></span>
+                        </div>
+                        <div class="form-label-group my-2">
+                            <label for="inputEmail">Email: </label>
+                            <input type="text" id="inputEmail" name="Email" class="form-control effect-3" placeholder='@branch.Email' value='@branch.Email' required>
+                            <span class="focus-border"><i></i></span>
+                        </div>
+                        <div>
+                            <p class="text-center" style="color: firebrick">@ViewBag.Message</p>
+                        </div>
+                        <input class="btn btn-success btn-block" type="submit" value="Update Branch" />
+                        <a class="btn btn-danger btn-block" href="/Branches/@branch.Id/Details">Discard</a>
+                    </form>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}

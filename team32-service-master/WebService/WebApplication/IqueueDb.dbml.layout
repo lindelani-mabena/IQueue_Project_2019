@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 22.375" name="IqueueDb">
+  <DataContextMoniker Name="/IqueueDbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="dc0e157f-2e87-4502-8bf7-964c2bfb1132" absoluteBounds="0.75, 10.125, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/IqueueDbDataContext/Branch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4bced347-3e6b-43d2-b28c-528e4d8df272" absoluteBounds="0.765, 10.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="63cdac60-b5f9-4d1b-9b53-c844b9d13163" absoluteBounds="6.25, 7.375, 2, 2.5401025390624996">
+      <DataClassMoniker Name="/IqueueDbDataContext/Consultation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="409507b2-cd7f-44da-b58f-5888e07f5703" absoluteBounds="6.265, 7.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fbf8525c-a46f-4c29-b922-48615eedd2e8" absoluteBounds="2, 20.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/IqueueDbDataContext/Province" />
+      <nestedChildShapes>
+        <elementListCompartment Id="282bb378-9dcf-46ed-8755-84fe0531c0bb" absoluteBounds="2.015, 20.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3fb7b996-4951-44e6-8520-43e4a0366f6d" absoluteBounds="6.25, 4.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/IqueueDbDataContext/Queue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="62d88d86-532e-4cdf-ac49-8d10bf1d61e4" absoluteBounds="6.265, 5.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" absoluteBounds="3.5, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/IqueueDbDataContext/Service" />
+      <nestedChildShapes>
+        <elementListCompartment Id="14606f8e-cc62-4c69-a2f8-e34c535f901f" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b1f9c5a-6629-4c36-9af1-c8f33d07e4f0" absoluteBounds="0.75, 7.5, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/IqueueDbDataContext/Service_Type" />
+      <nestedChildShapes>
+        <elementListCompartment Id="74ec41d3-9a53-40ec-be1f-49b1233c0286" absoluteBounds="0.765, 7.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b02112ba-7520-4f32-b642-5a38cc628f42" absoluteBounds="9, 5.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/IqueueDbDataContext/Ticket" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bbd20429-6160-4d86-8ff1-d5133047ce69" absoluteBounds="9.015, 5.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="38da5d6c-ec01-42b6-a117-71c288d43759" absoluteBounds="0.75, 3.25, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/IqueueDbDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8fb06c78-0429-4298-8546-c7d96de2d727" absoluteBounds="0.765, 3.71, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a4961bc-d8b0-413d-a350-945307f05626" absoluteBounds="3.5, 4.25, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/IqueueDbDataContext/User_Address" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f69476e2-3718-4405-b876-32cff8c2596e" absoluteBounds="3.515, 4.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5bcec1bd-bb80-4298-97bb-73cf6de78919" absoluteBounds="1.5, 14, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/IqueueDbDataContext/Address" />
+      <nestedChildShapes>
+        <elementListCompartment Id="83cae8ea-f342-4934-b4c9-489d730d7013" absoluteBounds="1.5150000000000001, 14.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 3.02896021294071); (5.875 : 3.40396021294071); (5.875 : 8.64505126953125); (6.25 : 8.64505126953125)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Service/Service_Consultation" />
+      <nodes>
+        <classShapeMoniker Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" />
+        <classShapeMoniker Id="63cdac60-b5f9-4d1b-9b53-c844b9d13163" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.92072760647035); (7.25 : 1.92072760647035); (7.25 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Service/Service_Queue" />
+      <nodes>
+        <classShapeMoniker Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" />
+        <classShapeMoniker Id="3fb7b996-4951-44e6-8520-43e4a0366f6d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 10.1265374615385); (3.125 : 9.75153746153846); (3.125 : 1.66768637792969); (3.5 : 1.66768637792969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Branch/Branch_Service" />
+      <nodes>
+        <classShapeMoniker Id="dc0e157f-2e87-4502-8bf7-964c2bfb1132" />
+        <classShapeMoniker Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.5612992741887); (3.06607443490112 : 7.24522483928758 : JumpStart); (3.18392556509888 : 7.12737370908982 : JumpEnd); (3.3125 : 6.9987992741887); (3.3125 : 2.52287675585937); (3.5 : 2.52287675585937)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Service_Type/Service_Type_Service" />
+      <nodes>
+        <classShapeMoniker Id="5b1f9c5a-6629-4c36-9af1-c8f33d07e4f0" />
+        <classShapeMoniker Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 7.67870198567708); (9 : 7.67870198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Consultation/Consultation_Ticket" />
+      <nodes>
+        <classShapeMoniker Id="63cdac60-b5f9-4d1b-9b53-c844b9d13163" />
+        <classShapeMoniker Id="b02112ba-7520-4f32-b642-5a38cc628f42" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 5.98159912109375); (9 : 5.98159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Queue/Queue_Ticket" />
+      <nodes>
+        <classShapeMoniker Id="3fb7b996-4951-44e6-8520-43e4a0366f6d" />
+        <classShapeMoniker Id="b02112ba-7520-4f32-b642-5a38cc628f42" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 3.25); (1.75 : 2.09528156689453); (3.04166666666667 : 2.09528156689453 : JumpStart); (3.20833333333333 : 2.09528156689453 : JumpEnd); (3.5 : 2.09528156689453)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/User/User_Service" />
+      <nodes>
+        <classShapeMoniker Id="38da5d6c-ec01-42b6-a117-71c288d43759" />
+        <classShapeMoniker Id="d61fe37d-2342-43c5-9a7d-c6f3963786ae" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 3.71875); (3.04166666666667 : 3.71875 : JumpStart); (3.20833333333333 : 3.71875 : JumpEnd); (3.22916666666667 : 3.71875 : JumpStart); (3.39583333333333 : 3.71875 : JumpEnd); (5.79166666666667 : 3.71875 : JumpStart); (5.95833333333333 : 3.71875 : JumpEnd); (7.16666666666667 : 3.71875 : JumpStart); (7.33333333333333 : 3.71875 : JumpEnd); (10 : 3.71875); (10 : 5.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/User/User_Ticket" />
+      <nodes>
+        <classShapeMoniker Id="38da5d6c-ec01-42b6-a117-71c288d43759" />
+        <classShapeMoniker Id="b02112ba-7520-4f32-b642-5a38cc628f42" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.94314697265625); (3.04166666666667 : 4.94314697265625 : JumpStart); (3.20833333333333 : 4.94314697265625 : JumpEnd); (3.22916666666667 : 4.94314697265625 : JumpStart); (3.39583333333333 : 4.94314697265625 : JumpEnd); (3.5 : 4.94314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/User/User_User_Address" />
+      <nodes>
+        <classShapeMoniker Id="38da5d6c-ec01-42b6-a117-71c288d43759" />
+        <classShapeMoniker Id="1a4961bc-d8b0-413d-a350-945307f05626" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.125 : 14); (2.125 : 12.4728011067708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Address/Address_Branch" />
+      <nodes>
+        <classShapeMoniker Id="5bcec1bd-bb80-4298-97bb-73cf6de78919" />
+        <classShapeMoniker Id="dc0e157f-2e87-4502-8bf7-964c2bfb1132" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.5 : 15.2700512695313); (4.53125 : 15.2700512695313); (4.53125 : 5.6362939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/Address/Address_User_Address" />
+      <nodes>
+        <classShapeMoniker Id="5bcec1bd-bb80-4298-97bb-73cf6de78919" />
+        <classShapeMoniker Id="1a4961bc-d8b0-413d-a350-945307f05626" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="834dabfa-3125-444d-9565-cd361ab940d8" absoluteBounds="4.625, 18.5, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/IqueueDbDataContext/City" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a4a1c13f-ae0a-42f8-8e42-c5756bf276b9" absoluteBounds="4.64, 18.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.625 : 18.5); (5.625 : 15.9363294042969); (3.5 : 15.9363294042969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IqueueDbDataContext/City/City_Address" />
+      <nodes>
+        <classShapeMoniker Id="834dabfa-3125-444d-9565-cd361ab940d8" />
+        <classShapeMoniker Id="5bcec1bd-bb80-4298-97bb-73cf6de78919" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4 : 20.5); (4.62499999999999 : 20.2708968098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IqueueDbDataContext/Province/Province_City" />
+      <nodes>
+        <classShapeMoniker Id="fbf8525c-a46f-4c29-b922-48615eedd2e8" />
+        <classShapeMoniker Id="834dabfa-3125-444d-9565-cd361ab940d8" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

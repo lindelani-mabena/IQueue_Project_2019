@@ -1,0 +1,5 @@
+Use Case: Assign Manager
+1.  System admin select managers
+2.  System display a list of managers
+3.  System admin selects a manager
+4.  System assigns a manager

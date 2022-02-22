@@ -1,0 +1,35 @@
+﻿@model Branch
+@{
+    ViewData["Title"] = $"{Model.Name} services";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link href="~/css/cardstyle.css" rel="stylesheet" />
+}
+
+<section class="py-5">
+    <div class="container">
+        <nav class="breadcrumbs my-4">
+            <a href="/Branches" class="breadcrumbsList">Branches</a>
+            <a href="/Branches/@Model.Id/Services" class="breadcrumbsList">Services</a>
+        </nav>
+        <h3 class="font-weight-light m-2">Services at @Model.Name</h3>
+        <div class="row text-center">
+            @foreach (var service in Model.Services)
+            {
+                @(await Html.PartialAsync("_ServicePartial",
+                    service,
+                    new ViewDataDictionary(ViewData)
+                    {
+                        { "branchId", Model.Id }
+                    }))
+            }
+        </div>
+    </div>
+</section>
+@section Scripts
+{
+    <script src="~/js/cardstyle.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,24 @@
+﻿@model Branch
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+<tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Actions</th>
+</tr>
+
+*@
+
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Code</td>
+        <td>@Model.Phone</td>
+        <td><a href="/Branches/@Model.Id/Update" class="btn btn-warning">Update</a>
+        <a href="/Consultant/Assign/@Model.Id" class="btn btn-primary">Assign Consultant</a>
+            <a href="/Branches/@Model.Id/Assign/Service" class="btn btn-success">Assign Service</a></td>
+        @*<td><a href="#" class="btn btn-warning">Update</a></td>
+        <td><a data-target="#createBranchModal" data-toggle="modal" href="#" class="btn btn-primary">Update</a></td>*@
+        <!--<td><button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#createBranchModal" data-url="@Url.Action("CreateBranchModal", "Branches")">Create Branch</button></td>-->
+    </tr>

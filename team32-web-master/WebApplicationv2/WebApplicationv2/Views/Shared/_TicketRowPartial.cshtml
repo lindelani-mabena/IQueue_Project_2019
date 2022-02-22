@@ -1,0 +1,46 @@
+﻿@model Ticket
+@*
+        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+<tr>
+    <th>Token</th>
+    <th>Active</th>
+    <th>Status</th>
+    <th>Booked at</th>
+    <th>Waiting Time</th>
+</tr>
+*@
+
+@section Scripts {
+    <script type="text/javascript" asp-append-version="true">
+        var ticket = document.getElementById('ticket');
+        console.log(ticket.classList)
+    </script>
+}
+
+
+@{
+    var style = "text-dark";
+}
+
+@if (Model.Active)
+{
+    if (Model.Type == "Registered")
+    {
+        style = "bg-success text-white font-weight-bold";
+    }
+    else if (Model.Type == "Unregistered")
+    {
+        style = "bg-warning text-white";
+    }
+    else
+    {
+        style = "bg-primary text-white";
+    }
+}
+
+<tr class="@style" id="ticket">
+    <td>@Model.Token</td>
+    <td>@Model.Status</td>
+    <td>--:--:--</td>
+    <td>@ViewBag.WaitingTime</td>
+</tr>

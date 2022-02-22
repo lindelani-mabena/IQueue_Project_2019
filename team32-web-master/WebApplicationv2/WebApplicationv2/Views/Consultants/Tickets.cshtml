@@ -1,0 +1,65 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Tickets";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Begin Page Content -->
+    <div class="container-fluid">
+        <nav class="breadcrumbs my-4">
+            <a href="/Consultants/Dashboard" class="breadcrumbsList">Dashboard</a>
+            <a href="/Consultants/Branch/@ViewBag.Branch.Id/Services" class="breadcrumbsList">Services</a>
+            <a href="/Consultants/Branches/@ViewBag.Branch.Id/Services/@Model.Id/Tickets" class="breadcrumbsList">Tickets</a>
+        </nav>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tickets ---</h1>
+        <p class="mb-4">These are the tickets for the service: @Model.Name </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tickets</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Active</th>
+                                <th>Status</th>
+                                <th>Booked at</th>
+                                <th>Waiting Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Token</th>
+                                <th>Active</th>
+                                <th>Status</th>
+                                <th>Booked at</th>
+                                <th>Waiting Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var ticket in Model.Tickets)
+                            {
+                                <tr>
+                                    <td>@ticket.Token</td>
+                                    <td>@ticket.Active</td>
+                                    <td>@ticket.Status</td>
+                                    <td>@ticket.InitialDate</td>
+                                    <td>@ticket.EstimatedWaitingTime</td>
+                                    <td>
+                                        @Html.ActionLink("Serve", "ServeTicket", "Consultants", new { ticketId = ticket.Id, serviceId = Model.Id, branchId = ViewBag.Branch.Id }, new { @class = "btn btn-success" })
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

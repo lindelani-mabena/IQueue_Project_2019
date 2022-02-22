@@ -1,0 +1,34 @@
+﻿@model Branch
+@*
+    <div class="card">
+        <img src="https://www.bankoftennessee.com/wp/wp-content/uploads/branch-icon-300.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">Branch Email: @Model.Email</p>
+            <a href="/Branches/@Model.Id/Services" class="btn btn-primary">Services</a>
+        </div>
+    </div>*@
+<div class="card col-sm-6 col-md-4 col-lg-3 m-2">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+
+     @*  <p class="card-text">Operating Hours: @Model.OperatingHours</p> *@ 
+        <p class="card-text">Code: @Model.Code</p>
+        <p class="card-text">Phone: @Model.Phone</p>
+        <p class="card-text">Email:@Model.Email</p>
+        <p class="card-text">Address: @Model.Address</p>
+
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">
+            @if (Model.Services.Count > 0)
+            {
+                <a href="/Branches/@Model.Id/Services" class="btn btn-sm btn-primary">Services</a>
+            }
+            else
+            {
+                <a href="#" class="btn btn-sm btn-danger">No Services</a>
+            }
+        </small>
+    </div>
+</div>

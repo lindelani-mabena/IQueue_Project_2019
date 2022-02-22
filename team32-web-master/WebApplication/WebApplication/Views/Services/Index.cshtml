@@ -1,0 +1,14 @@
+﻿@model List<Service>
+
+@{
+     ViewData["Title"] = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+
+<h1 class="col-md-3">Available Services</h1>
+
+@foreach (var service in Model)
+{
+    <partial name="_ServicePartial" model="@service"/>
+}
+

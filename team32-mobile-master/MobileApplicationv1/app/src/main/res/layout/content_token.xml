@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="497dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="197dp"
+            android:layout_height="499dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:divider="@color/colorPrimary"
+                android:dividerPadding="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="Branch"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="Service" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:text="Token Number" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="Estimate Serving time" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="501dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="211dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtBranchname"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtServiceName"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtToken"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:background="@color/colorPrimary"
+                    android:text="TextView" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

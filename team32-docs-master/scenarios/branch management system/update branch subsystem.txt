@@ -1,0 +1,10 @@
+Use Case: Update branch
+1.  System admin selects a branch
+2.  System displays relevant branch’s details
+3.  System admin changes branch details
+4.  System validates branch details
+5.  System stores branch details
+Extensions
+4a. Invalid branch details entered
+1. System notifies system admin of invalid branch details
+2.  System admin can then fix invalid branch details

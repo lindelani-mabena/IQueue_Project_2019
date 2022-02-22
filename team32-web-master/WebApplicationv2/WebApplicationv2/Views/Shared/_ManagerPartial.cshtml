@@ -1,0 +1,16 @@
+﻿@model Manager
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="card my-2">
+    <div class="card-header">
+        @Model.Email
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.FirstName</h5>
+        <span class="card-text">Some information</span>
+        <a href="/Managers/@Model.Id/Details" class="btn btn-primary">Details</a>
+        <a href="/Managers/@Model.Id/Assign" class="btn btn-warning">Assign</a>
+    </div>
+</div>

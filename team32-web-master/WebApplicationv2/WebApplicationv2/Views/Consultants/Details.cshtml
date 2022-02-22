@@ -1,0 +1,30 @@
+﻿@model Consultant
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.UpdateStatus))
+                {
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> @ViewBag.UpdateStatus
+                    </div>
+                }
+
+                <div class="card">
+                    <h5 class="card-header">@Model.Email</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.FirstName</h5>
+                        <span class="card-text">Some Information</span><br />
+                        <a href="/Consultants/List" class="btn btn-secondary my-3">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,25 @@
+﻿@model Consultant
+@*
+        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+    <tr>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Title</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+*@
+
+<tr>
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.Title</td>
+    <td>@Model.PhoneNumber</td>
+    <td>@Model.Email</td>
+    <td>                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#branchModel">
+        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+        Assign Consultant
+    </a></td>
+</tr>

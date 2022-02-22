@@ -1,0 +1,65 @@
+﻿@model List<Branch>
+@using System.Data
+@using FusionCharts.DataEngine
+@using FusionCharts.Visualization
+@using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal
+
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    DataTable ChartData = new DataTable();
+    ChartData.Columns.Add("Branches", typeof(System.String));
+    ChartData.Columns.Add("Services", typeof(System.Double));
+
+
+    foreach (Branch b in Model)
+    {
+        ChartData.Rows.Add(b.Name, b.Services.Count);
+    }
+
+    // Create static source with this data table
+    StaticSource source = new StaticSource(ChartData);
+    // Create instance of DataModel class
+    DataModel model = new DataModel();
+    // Add DataSource to the DataModel
+    model.DataSources.Add(source);
+    // Instantiate Column Chart
+    Charts.ColumnChart column = new Charts.ColumnChart("first_chart");
+    // Set Chart's width and height
+    column.Width.Pixel(700);
+    column.Height.Pixel(400);
+    // Set DataModel instance as the data source of the chart
+    column.Data.Source = model;
+    // Set Chart Title
+    column.Caption.Text = "Available Services";
+    // Sset chart sub title
+    column.SubCaption.Text = "2017-2018";
+
+    // set XAxis Text
+    column.XAxis.Text = "Branches";
+    // Set YAxis title
+    column.YAxis.Text = "Services";
+    column.ThemeName = FusionChartsTheme.ThemeName.FUSION;
+}
+
+@section Scripts {
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js" asp-append-version="true"></script>
+}
+
+<form>
+    <div>
+        @if (Model.Count > 0)
+        {
+            Html.Raw(column.Render());
+        }
+        else
+        {
+            <h1>No data available</h1>
+        }
+    </div>
+</form>

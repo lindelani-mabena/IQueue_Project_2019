@@ -1,0 +1,33 @@
+﻿@model List<Branch>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<!-- Branch Modal-->
+<div class="modal fade" id="branchModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select a branch</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="form-label-group my-2">
+                        <select class="form-control">
+                            @foreach (var branch in Model)
+                            {
+                                <option>@branch.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-success" href="/Account/Logout">Assign</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

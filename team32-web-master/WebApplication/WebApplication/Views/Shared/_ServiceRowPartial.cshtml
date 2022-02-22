@@ -1,0 +1,20 @@
+﻿@model Service
+@*
+        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th># Tickets Pending</th>
+    </tr>
+
+*@
+
+@{
+    var count = Model.Tickets.Count(x => x.Active);
+}
+
+<tr>
+    <td>@Model.Name</td>
+    <td>@Model.Description</td>
+    <td> @count </td>
+</tr>

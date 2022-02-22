@@ -1,0 +1,47 @@
+﻿@model List<WebApplicationv2.Models.Views.ConsultantModel>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Title</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Title</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var consultant in Model)
+                        {
+                            <partial name="_ConsultantRowPartial" model="@consultant" />
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Branches != null)
+{
+    <partial model="@ViewBag.Branches"  name="_BranchesModalPartial" />
+}

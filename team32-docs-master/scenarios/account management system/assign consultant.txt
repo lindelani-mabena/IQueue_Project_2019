@@ -1,0 +1,7 @@
+Use Case: Assign Consultant
+1.  Manager select consultants
+2.  System display a list of consultants
+3.  Manager selects a consultant
+4.  System displays a list of available services for that consultant
+5.  Manager selects a service for that consultant
+6.  System assigns a consultant

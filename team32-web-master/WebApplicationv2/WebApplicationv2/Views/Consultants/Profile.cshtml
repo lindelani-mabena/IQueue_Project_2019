@@ -1,0 +1,76 @@
+﻿@model WebApplicationv2.Models.Views.ConsultantModel
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var branchName = "No Branch Assigned";
+
+    if (Model.Branch != null)
+    {
+        branchName = Model.Branch.Name;
+    }
+}
+
+<!-- Begin Page Content -->
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title">Edit Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Consultant/Profile/Update">
+                        <div class="row">
+                            <div class="col-md-5 pr-1">
+                                <div class="form-group">
+                                    <label>Branch</label>
+                                    <input type="text" class="form-control" disabled="true" placeholder="@branchName" value="@branchName">
+                                </div>
+                            </div>
+                            <div class="col-md-5 px-1">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" disabled="true" class="form-control" placeholder="Email" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="col-md-2 pl-1">
+                                <div class="form-group">
+                                    <label for="inputTitle">Title</label>
+                                    <input type="title" name="Title" class="form-control" placeholder="@Model.Title">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pr-1">
+                                <div class="form-group">
+                                    <label>FirstName</label>
+                                    <input type="text" class="form-control" name="FirstName" placeholder="FirstName" value="@Model.FirstName">
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-1">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="LastName" placeholder="Last Name" value="@Model.LastName">
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-1">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" name="PhoneNumber" placeholder="Phone Number" value="@Model.PhoneNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="update ml-auto mr-auto">
+                                <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

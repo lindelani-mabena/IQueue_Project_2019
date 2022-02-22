@@ -1,0 +1,13 @@
+﻿@model List<Branch>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Select branch</h3>
+<div class="row">
+    @foreach (var branch in Model)
+        {
+            <partial name="_BranchPartial" model="@branch"/>
+        }
+    </div>

@@ -1,0 +1,72 @@
+﻿@model Service
+
+
+<section class="py-3">
+    <nav class="breadcrumbs my-4">
+        <a href="/Branches" class="breadcrumbsList">Branches</a>
+        <a href="/Branches/@ViewBag.Branch.Id/Services" class="breadcrumbsList">Services</a>
+        <a href="/Services/@Model.Id/Tickets" class="breadcrumbsList">Tickets</a>
+    </nav>
+    <h1>Estimated Waiting Time: <span id="waitingTime"></span>@*Model.CalculateAverageWaitingTime().ToString(@"hh\:mm\:ss")*@</h1>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Status</th>
+                    <th>Booked at</th>
+                    <th>Waiting Time</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody id="tickets">
+                @foreach (var ticket in Model.Tickets)
+                {
+                    if (ticket.Active)
+                    {
+                        @(await Html.PartialAsync("_TicketRowPartial",
+                              ticket,
+                              new ViewDataDictionary(ViewData)
+                              {
+                                  { "WaitingTime", Model.CalculateAverageWaitingTime().ToString(@"hh\:mm\:ss") }
+                              }))
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tbl-header">
+        <table>
+            <tfoot>
+                <tr>
+                    <th>Token</th>
+                    <th>Status</th>
+                    <th>Booked at</th>
+                    <th>Waiting Time</th>
+                </tr>
+                <tr>
+                    <th colspan="4"><a data-target="#ticketModal" data-toggle="modal" href="#" data-id="@Model.Id" data-name="@Model.Name" data-description="@Model.Description" class="btn btn-primary form-control">Join Queue</a></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+
+
+<!-- follow me template -->
+<div class="made-with-love">
+    Powered by iQueue
+</div>
+
+
+@(await Html.PartialAsync("_TicketModalPartial",
+      Model,
+      new ViewDataDictionary(ViewData)
+      {
+          { "branchId", ViewBag.Branch.Id }
+      }))
+
+<!-- /.container-fluid -->

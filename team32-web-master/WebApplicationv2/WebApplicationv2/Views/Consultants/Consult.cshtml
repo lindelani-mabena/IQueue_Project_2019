@@ -1,0 +1,162 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Consult";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section HeadStyle
+{
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+}
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script type="text/javascript" asp-append-version="true">
+        function startConsultation() {
+            $.getJSON("/Consultant/Ticket/Consultation/Start/Services/@Model.Id/New",
+                function(ticket) {
+                    if (ticket == null) {
+                        Swal.fire(
+                            'No Pending Tickets',
+                            'Please try again later. Issue to be resolved',
+                            'warning'
+                        );
+                    } else {
+
+                        Swal.fire({
+                            title: 'Now Serving: ' + ticket.token,
+                            html:
+                                ``,
+                            focusConfirm: true,
+                            showConfirmButton: true,
+                            confirmButtonText: 'End Consultation'
+                        }).then((result) => {
+                            if (result.value) {
+                                //console.log(document.getElementById('txtComments').value);
+                                //var comments = document.getElementById('txtComments').value;
+
+                                //var comments = document.getElementById('comments').value;
+
+                                var url = `/Consultant/Ticket/Consultation/End/Services/@Model.Id/New`;
+
+                                //var x = `/Consultant/Ticket/Consultation/End/Services/@Model.Id/New/Comments/` + comments;
+
+                                //console.log(comments);
+
+                                $.getJSON(url,
+                                    function(ticket) {
+                                        if (ticket == null) {
+                                            Swal.fire(
+                                                'Error!',
+                                                'Something went wrong. Please contact system admin',
+                                                'warning'
+                                            );
+                                        } else {
+
+                                            Swal.fire({
+                                                title: 'Success',
+                                                text: ticket.token + " has been served for " + ticket.duration,
+                                                type: 'success',
+                                                showCancelButton: false,
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                            });
+                                        }
+                                    }
+                                );
+
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.close
+                            ) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'Ticket Served! :)',
+                                    'error'
+                                );
+                            } else {
+                                $.getJSON(`/Consultant/Ticket/Consultation/End/Services/@Model.Id/New`,
+                                    function(ticket) {
+                                        if (ticket == null) {
+                                            Swal.fire(
+                                                'Error!',
+                                                'Please always click end consultation button. Ticket: ' +
+                                                ticket.token +
+                                                " served",
+                                                'warning'
+                                            );
+                                        } else {
+
+                                            Swal.fire({
+                                                title: 'Warning!',
+                                                text: "Please always click the end consultation button. " +
+                                                    ticket.token +
+                                                    " has been served for " +
+                                                    ticket.duration,
+                                                type: 'warning',
+                                                showCancelButton: false,
+                                                showConfirmButton: false,
+                                                timer: 3000
+                                            });
+                                        }
+                                    }
+                                );
+                            }
+                        });
+                    }
+                }
+            );
+        }
+
+    </script>
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="card-body">
+        <div class="table-responsive" style="max-height: 300px;">
+            <table class="table">
+                <thead>
+                <th>Ticket</th>
+                <th class="text-center">Ticket No.</th>
+                <th class="text-center">Book Time</th>
+                <th class="text-center">Duration</th>
+                </thead>
+                <tbody>
+                @foreach (var t in Model.Tickets)
+                {
+                    <tr>
+                        <td></td>
+                        <td class="text-center">@t.Token</td>
+                        <td class="text-center">@t.InitialDate</td>
+                        <td class="text-center">@t.Duration</td>
+                    </tr>
+                }
+                <tr>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                    </td>
+                    <td class="text-center">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        @if (ViewBag.Start)
+        {
+            <button class="btn btn-round btn-success float-right mx-2" onclick="startConsultation()">Start Consultation</button>
+            <a href="/Consultant/Ticket/Consultation/End/Services/@Model.Id" class="btn btn-round btn-danger float-right">End Consultation</a>
+        }
+        else
+        {
+            <a href="/Consultant/Ticket/Consultation/End/Services/@Model.Id" class="btn btn-round btn-danger float-right">End Consultation</a>
+        }
+    </div>
+    <!-- Content Row -->
+</div>

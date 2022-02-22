@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/nav_sev"
+        android:icon="@android:drawable/ic_media_rew"
+        android:title="Service"
+        />
+
+    <item
+        android:id="@+id/nav_join"
+        android:icon="@android:drawable/presence_online"
+        android:title="Join Queue"
+        android:enabled="false"
+    />
+
+    <item
+        android:id="@+id/nav_token"
+        android:icon="@android:drawable/ic_media_ff"
+        android:title="Queue Token"
+        android:enabled="false"/>
+
+</menu>

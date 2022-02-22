@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Address
+
+<div class="card my-2">
+    <div class="card-header">
+        Address @Model.Id
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Province</h5>
+        <span class="card-text">City: @Model.City</span>
+    </div>
+</div>

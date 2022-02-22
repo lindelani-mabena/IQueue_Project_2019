@@ -1,0 +1,43 @@
+﻿@Model Service
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Update @Model.Name</h5>
+                        @using (Html.BeginForm("Update", "Services", FormMethod.Post))
+                        {
+                            <form class="form-signin effect-3">
+                                <div class="form-label-group my-2">
+                                    <label for="inputName">Name: </label>
+                                    <input type="text" id="inputName" name="Name" class="form-control effect-3" placeholder='@Model.Name' value='@Model.Name' required autofocus>
+                                    <span class="focus-border"><i></i></span>
+
+                                </div>
+                                <div class="form-label-group my-2">
+                                    <label for="inputDescription">Description: </label>
+                                    <textarea name="Description" class="form-control effect-3">@Model.Description
+</textarea>
+                                    <span class="focus-border"><i></i></span>
+                                </div>
+                                <div>
+                                    <p class="text-center" style="color: firebrick">@ViewBag.Message</p>
+                                </div>
+                                <input class="btn btn-success btn-block" type="submit" value="Update Service" />
+                                <a class="btn btn-danger btn-block" href="/Services">Discard</a>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}

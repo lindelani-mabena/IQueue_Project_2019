@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Ticket
+@*
+    <tr>
+        <th>Token</th>
+        <th>Active</th>
+    </tr>
+
+*@
+
+<tr>
+    <td>@Model.Token</td>
+    <td>@Model.Active</td>
+    <td>@Model.WaitingTime</td>
+    <td>@Model.Status</td>
+    <td>@Model.InitialTime</td>
+</tr>

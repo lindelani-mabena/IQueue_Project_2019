@@ -1,0 +1,30 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.UpdateStatus))
+                {
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> @ViewBag.UpdateStatus
+                    </div>
+                }
+                <div class="card">
+                    <h5 class="card-header">Service @Model.Id</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Name: @Model.Name</h5>
+                        <span class="card-text">Description: @Model.Description</span><br />
+                        <a href="/Services/List" class="btn btn-secondary my-3 form-control">List Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

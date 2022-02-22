@@ -1,0 +1,111 @@
+﻿@model List<Branch>
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <script>
+        const driver = new Driver({
+            opacity: 0.75
+        });
+        // Define the steps for introduction
+
+        driver.defineSteps([
+            {
+                element: '#consultant-intro',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    className: 'first-step-popover-class',
+                    title: 'Get Started',
+                    description: 'Welcome to Consultant Guide',
+                    position: 'right'
+                }
+            },
+
+            {
+                element: '#consultant-profile',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Profile',
+                    description: 'This is where you update and view your profile',
+                    position: 'right'
+                }
+            },
+            {
+                element: '#consultant-logout',
+                stageBackground: '#000000',
+                opacity: 0.05,
+                popover: {
+                    title: 'Logout',
+                    description: 'Menu to end your session',
+                    position: 'left'
+                }
+            }
+        ]);
+
+        driver.start();
+    </script>
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <nav class="breadcrumbs my-4">
+        <a href="/Consultants/Dashboard" class="breadcrumbsList">Dashboard</a>
+    </nav>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Branches</h1>
+    <p class="mb-4">List of branches with details</p>
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Branches</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered display cell-border stripe" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var branch in Model)
+                        {
+                            <tr>
+                                <td>@branch.Name</td>
+                                <td>@branch.Code</td>
+                                <td>@branch.Email</td>
+                                <td>@branch.Phone</td>
+                                <td>
+                                    <a href="/Consultants/Branch/@branch.Id/Services" class="btn btn-primary">Select</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
